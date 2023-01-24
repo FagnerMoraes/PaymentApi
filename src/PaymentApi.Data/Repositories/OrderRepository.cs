@@ -4,6 +4,7 @@ using PaymentApi.Data.Repositories.Shared;
 using PaymentApi.Domain.Entities;
 using PaymentApi.Domain.Entities.Shared;
 using PaymentApi.Domain.Interfaces.Repositories;
+using PaymentApi.Domain.Interfaces.Repositories.Shared;
 
 namespace PaymentApi.Data.Repositories
 {
@@ -11,8 +12,12 @@ namespace PaymentApi.Data.Repositories
     public class OrderRepository : IOrderRepository
     {
         private readonly DataContext Context;
-        public OrderRepository(DataContext dataContext) 
+        private readonly IBaseRepository<Order> _baseRepository;
+
+
+        public OrderRepository(DataContext dataContext, IBaseRepository<Order> baseRepository) 
         {
+            _baseRepository = baseRepository;
             Context = dataContext;
         }
 
@@ -40,6 +45,7 @@ namespace PaymentApi.Data.Repositories
 
         public async Task<Order?> ObterPorIdAsync(Guid id)
         {
+            await _baseRepository.GetAllAsync();
             return await Context.Set<Order>().Include(x => x.Seller).AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
         }
 

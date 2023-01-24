@@ -40,10 +40,10 @@ public class OrderItemServiceTest
     public async Task Adicionar_item_da_venda_retorna_Id()
     {
         var id = _orderItem.Id;
-        _orderItemService.AdicionarAsync(_orderItem)
+        _orderItemService.CreateAsync(_orderItem)
                          .Returns(id);
 
-        var OrderItemNewId = await _orderItemService.AdicionarAsync(_orderItem);
+        var OrderItemNewId = await _orderItemService.CreateAsync(_orderItem);
 
         OrderItemNewId.Should().Be(id);
     }
@@ -52,10 +52,10 @@ public class OrderItemServiceTest
     public async Task Adicionar_item_da_venda_com_OrderId_diferente_retorna_null()
     {
         var orderItemFake = new OrderItem(new Guid(), _product.Id);
-        _orderItemService.AdicionarAsync(_orderItem)
+        _orderItemService.CreateAsync(_orderItem)
                          .Returns(orderItemFake);
 
-        var OrderItemNew = (OrderItem)await _orderItemService.AdicionarAsync(orderItemFake);
+        var OrderItemNew = (OrderItem)await _orderItemService.CreateAsync(orderItemFake);
 
         OrderItemNew.Should().Be(null);
     }

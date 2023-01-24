@@ -8,7 +8,7 @@ using PaymentApi.Domain.Enums;
 
 namespace PaymentApi.Domain.Entities
 {
-    public class Order
+    public class Order : Entity
     {
 
         public Order(int sellerId)

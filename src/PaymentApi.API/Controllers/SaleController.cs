@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PaymentApi.Application.DTOs.Request;
 using PaymentApi.Application.DTOs.Response;
-using PaymentApi.Data.Context;
 using PaymentApi.Domain.Entities;
-using PaymentApi.Domain.Enums;
 using PaymentApi.Domain.Interfaces.Repositories;
 using PaymentApi.Domain.Interfaces.Services;
 
@@ -34,22 +32,8 @@ namespace PaymentApi.API.Controllers
             _sellerRepository = sellerRepository;
             _orderItemRepository = orderItemRepository;
             
-
-            //GerarBD(_productRepository, _sellerRepository, _orderRepository, _orderItemRepository);
-
         }
-        //private void GerarBD(IProductRepository _productRepository,
-        //             ISellerRepository _sellerRepository,
-        //             IOrderRepository _orderRepository,
-        //             IOrderItemRepository _orderItemRepository)
-        //{
-        //        var teste = _productRepository.AdicionarAsync(new Product(1, "Produto 01", 2));
-        //        teste = _productRepository.AdicionarAsync(new Product(2, "Produto 02", 4));
-        //        teste = _sellerRepository.AdicionarAsync(new Seller(1, "Vendedor01", "11111111", "teste@teste.com", "123123"));
-        //        teste = _orderRepository.AdicionarAsync(new Order(new Guid("9D2B0228-4D0D-4C23-8B49-01A698857709"), 1));
-        //        teste = _orderItemRepository.AdicionarAsync(new OrderItem(1, new Guid("9D2B0228-4D0D-4C23-8B49-01A698857709"), 1));
-        //        teste = _orderItemRepository.AdicionarAsync(new OrderItem(2, new Guid("9D2B0228-4D0D-4C23-8B49-01A698857709"), 2));
-        //}
+       
 
 
         [HttpGet("{id:Guid}")]
@@ -75,7 +59,7 @@ namespace PaymentApi.API.Controllers
             foreach (var item in saleRequest.OrderItemsSale) {
                 var orderItem = CreateOrderItemRequest.ConvertForEntity(id,item);
 
-                var OrderItemId = (int)await _orderItemService.AdicionarAsync(orderItem);
+                var OrderItemId = (int)await _orderItemService.CreateAsync(orderItem);
                 
                 if(OrderItemId == 0)    
                 {
@@ -83,7 +67,6 @@ namespace PaymentApi.API.Controllers
                 }
 
             }
-
             return AcceptedAtAction(nameof(Get), new { id = id }, id);
         }
 
@@ -93,7 +76,6 @@ namespace PaymentApi.API.Controllers
             try
             {
                 var order = (Order)await _orderService.UpdateOrderToApproved(id);
-
                 var orderResponse = OrderResponse.CovertToResponse(order);
                 return Ok(orderResponse);
             }catch (ArgumentNullException e)
@@ -113,7 +95,6 @@ namespace PaymentApi.API.Controllers
         {
             try { 
             var order = (Order)await _orderService.UpdateOrderToCancel(id);
-
             var orderResponse = OrderResponse.CovertToResponse(order);
             return Ok(orderResponse);
             }catch(ArgumentNullException e)
@@ -134,7 +115,6 @@ namespace PaymentApi.API.Controllers
             try
             {
                 var order = (Order)await _orderService.UpdateOrderToSendToCarrier(id);
-
                 var orderResponse = OrderResponse.CovertToResponse(order);
                 return Ok(orderResponse);
             }catch (ArgumentNullException e)
@@ -154,7 +134,6 @@ namespace PaymentApi.API.Controllers
             try
             {
                 var order = (Order)await _orderService.UpdateOrderToDelivered(id);
-
                 var orderResponse = OrderResponse.CovertToResponse(order);
                 return Ok(orderResponse);
             }catch (ArgumentNullException e)

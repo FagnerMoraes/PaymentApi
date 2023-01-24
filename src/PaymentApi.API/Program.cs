@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using PaymentApi.Data.Context;
 using PaymentApi.Data.Repositories;
+using PaymentApi.Data.Repositories.Shared;
 using PaymentApi.Domain.Interfaces.Repositories;
+using PaymentApi.Domain.Interfaces.Repositories.Shared;
 using PaymentApi.Domain.Interfaces.Services;
 using PaymentApi.Domain.Services;
 
@@ -15,11 +17,12 @@ builder.Services.AddDbContext<DataContext>(options
 //=> options.UseInMemoryDatabase("InMemoryProvider"));
 
 
-
+builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ISellerRepository, SellerRepository>();
 builder.Services.AddScoped<IOrderRepository,OrderRepository>();
 builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+
 
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderItemService, OrderItemService>();

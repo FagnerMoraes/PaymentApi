@@ -10,10 +10,10 @@ namespace PaymentApi.Application.DTOs.Request
 {
     public class CreateSaleRequest
     {
-        [JsonPropertyName("Dados da Venda")]
+        [JsonPropertyName("DadosVenda")]
         public CreateOrderRequest OrderRequest { get; set; }
 
-        [JsonPropertyName("Itens da Venda")]
+        [JsonPropertyName("ItensVenda")]
         public List<CreateOrderItemRequest>? OrderItemsSale { get; set; } = new List<CreateOrderItemRequest>();
 
         public CreateSaleRequest(CreateOrderRequest orderRequest)

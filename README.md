@@ -13,9 +13,7 @@
 ## BIBLIOTECAS UTILIZADAS NO PROJETO
 
 - Microsoft.EntityFrameworkCore;
-- Microsoft.EntityFrameworkCore.Sqlite;
-- Microsoft.EntityFrameworkCore.Design;
-- Microsoft.EntityFrameworkCore.Tools.
+- Microsoft.EntityFrameworkCore.Sqlite.
 
 ## BIBLIOTECAS PARA OS TESTES
 - XUNIT;

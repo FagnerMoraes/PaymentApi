@@ -15,7 +15,7 @@ namespace PaymentApi.Domain.Test.Services
         
         public OrderServiceTest()
         {            
-            var seller = new Seller(1,"Vendedor1","1234","test@test.com","123456");
+            var seller = new Seller(new Guid("9D2B0228-4D0D-4C23-8B49-01A698857709"),"Vendedor1","1234","test@test.com","123456");
             
             _order = new Order(
                 seller.Id
@@ -199,7 +199,7 @@ namespace PaymentApi.Domain.Test.Services
         public async Task Adicionar_Ordem_Deve_Sem_Vendedor_retorna_Null()
         {
             // Arrange
-            var orderFake = new Order(0);
+            var orderFake = new Order(new Guid("9D2B0228-4D0D-4C23-8B49-01A698857706"));
             _orderRepository.AdicionarAsync(_order)
                 .Returns(orderFake);
 

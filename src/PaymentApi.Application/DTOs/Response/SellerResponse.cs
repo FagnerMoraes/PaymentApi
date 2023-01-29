@@ -9,7 +9,7 @@ namespace PaymentApi.Application.DTOs.Response
 {
     public class SellerResponse
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [JsonPropertyName("Nome")]
         public string Name { get; set; }
 
@@ -22,7 +22,7 @@ namespace PaymentApi.Application.DTOs.Response
         [JsonPropertyName("Contato")]
         public string Telefone { get; set; }
 
-        public SellerResponse(int id,string name, string cPF, string email, string telefone)
+        public SellerResponse(Guid id,string name, string cPF, string email, string telefone)
         {
             Id = id;
             Name = name;

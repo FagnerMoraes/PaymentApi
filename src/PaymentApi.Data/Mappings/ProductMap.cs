@@ -8,13 +8,25 @@ namespace PaymentApi.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.ToTable("TB_PRODUTO");
+            builder.ToTable("TB_PRODUCT");
 
             builder.HasData(new[]
             {
-                new Product(1,"Produto 01",2),
-                new Product(2,"Produto 02",2)
+                new Product(new Guid("9D2B0228-4D0D-4C23-8B49-01A698857709"),"Produto 01",2),
+                new Product(new Guid("9D2B0228-4D0D-4C23-8B49-01A698857708"),"Produto 02",2)
             });
+
+            builder.Property(p => p.Title)
+                .HasColumnName("COL_TITLE_PRODUCT")
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(100)
+                .IsRequired();
+            
+            builder.Property(p => p.Price)
+                .HasColumnName("COL_PRICE_PRODUCT")
+                .HasColumnType("MONEY")
+                .IsRequired();
+
         }
     }
 }

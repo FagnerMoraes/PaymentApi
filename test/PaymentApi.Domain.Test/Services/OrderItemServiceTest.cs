@@ -18,15 +18,15 @@ public class OrderItemServiceTest
 
     public OrderItemServiceTest()
     {
-        _product = new Product(1, "Produto01", 5);
+        _product = new Product(new Guid("9D2B0228-4D0D-4C23-8B49-01A698857709"), "Produto01", 5);
 
-        _product = new Product(2, "Produto02", 8);
+        _product = new Product(new Guid("9D2B0228-4D0D-4C23-8B49-01A698857708"), "Produto02", 8);
 
-        _seller = new Seller(1, "Vendedor1", "1234", "test@test.com", "123456");
+        _seller = new Seller(new Guid("9D2B0228-4D0D-4C23-8B49-01A698857707"), "Vendedor1", "1234", "test@test.com", "123456");
 
-        _order = new Order(new Guid("9D2B0228-4D0D-4C23-8B49-01A698857709"),_seller.Id);
+        _order = new Order(new Guid("9D2B0228-4D0D-4C23-8B49-01A698857706"),_seller.Id);
 
-        _orderItem = new OrderItem(1,_order.Id,_product.Id);
+        _orderItem = new OrderItem(new Guid("9D2B0228-4D0D-4C23-8B49-01A698857705"),_order.Id,_product.Id);
 
         _orderItemRepository = Substitute.For<IOrderItemRepository>();
 

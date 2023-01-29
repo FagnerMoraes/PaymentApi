@@ -9,7 +9,7 @@ namespace PaymentApi.Domain.Entities
     public class Product : Entity
     {
         public Product(
-            int id,
+            Guid id,
             string title,
             decimal price)
         {

@@ -1,8 +1,3 @@
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using PaymentApi.Domain.Entities.Shared;
 using PaymentApi.Domain.Enums;
 
@@ -11,7 +6,7 @@ namespace PaymentApi.Domain.Entities
     public class Order : Entity
     {
 
-        public Order(int sellerId)
+        public Order(Guid sellerId)
         {
             Id = Guid.NewGuid();
             SellerId = sellerId;
@@ -20,7 +15,7 @@ namespace PaymentApi.Domain.Entities
             OrderNumber = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10).ToUpper();
         }
 
-        public Order(Guid id, int sellerId) : this(sellerId)
+        public Order(Guid id, Guid sellerId) : this(sellerId)
         {
             Id = id;
             SellerId = sellerId;
@@ -28,7 +23,7 @@ namespace PaymentApi.Domain.Entities
 
         public Guid Id { get; private set; }
         public string OrderNumber { get; private set; }
-        public int SellerId {get; private set;}
+        public Guid SellerId {get; private set;}
         public DateTime CreateDate { get; private set; }
         public EOrderStatus Status { get; private set; }
         public DateTime UpdateDate { get; private set; }

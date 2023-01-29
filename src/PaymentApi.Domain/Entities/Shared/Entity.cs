@@ -2,7 +2,10 @@ namespace PaymentApi.Domain.Entities.Shared
 {
     public class Entity
     {
-
-        public int Id { get; protected set; }
+        public Entity()
+        {
+            Id = new Guid();
+        }
+        public Guid Id { get; protected set;}
     }
 }

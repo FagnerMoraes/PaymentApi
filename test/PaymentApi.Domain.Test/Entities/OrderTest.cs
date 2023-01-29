@@ -10,7 +10,7 @@ public class OrderTest
 
      public OrderTest()
     {
-        _seller = new Seller(1,"Vendedor1","1234","test@test.com","123456");
+        _seller = new Seller(new Guid("9D2B0228-4D0D-4C23-8B49-01A698857707"),"Vendedor1","1234","test@test.com","123456");
         
         _order = new Order( _seller.Id );
     }

@@ -10,10 +10,10 @@ namespace PaymentApi.Application.DTOs.Request
     public class CreateOrderRequest
     {
         [JsonPropertyName("Codigo do Vendedor")]
-        public int SellerId { get; set; }
+        public Guid SellerId { get; set; }
 
 
-        public CreateOrderRequest(int sellerId)
+        public CreateOrderRequest(Guid sellerId)
         {
             SellerId = sellerId;      
         }

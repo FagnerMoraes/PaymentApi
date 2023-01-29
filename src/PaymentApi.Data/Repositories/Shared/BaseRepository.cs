@@ -12,7 +12,7 @@ namespace PaymentApi.Data.Repositories.Shared
     public BaseRepository(DataContext dataContext) =>
         Context = dataContext;
 
-    public virtual async Task<bool> VerifyInDB(int id)    
+    public virtual async Task<bool> VerifyInDB(Guid id)    
             => await Context.Set<TEntity>().AnyAsync(x => x.Id == id);
     
 
@@ -21,7 +21,7 @@ namespace PaymentApi.Data.Repositories.Shared
             .AsNoTracking()
             .ToListAsync();
 
-    public virtual async Task<TEntity?> GetByIdAsync(int id) =>
+    public virtual async Task<TEntity?> GetByIdAsync(Guid id) =>
         await Context.Set<TEntity>().FindAsync(id);
 
     public virtual async Task<object> CreateAsync(TEntity objeto)
@@ -38,7 +38,7 @@ namespace PaymentApi.Data.Repositories.Shared
             return objeto.Id;
     }
     
-    public virtual async Task RemoveByIdAsync(int id)
+    public virtual async Task RemoveByIdAsync(Guid id)
     {
         var objeto = await GetByIdAsync(id);
         if (objeto is null)
@@ -52,8 +52,6 @@ namespace PaymentApi.Data.Repositories.Shared
         await Context.SaveChangesAsync();
 
     }
-
-    
 
     public void Dispose() =>
         Context.Dispose();

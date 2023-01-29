@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using PaymentApi.Domain.Entities.Shared;
 
 namespace PaymentApi.Domain.Entities
 {
     public class Seller : Entity
     {
-        public Seller(int id,string name, string cPF, string email, string telefone)
+        public Seller(Guid id,string name, string cPF, string email, string telefone)
         {
             Id = id;
             Name = name;

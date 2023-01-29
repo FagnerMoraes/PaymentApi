@@ -13,9 +13,9 @@ namespace PaymentApi.Application.DTOs.Request
         [JsonPropertyName("Código da Venda")]
         public Guid OrderId { get; set; }
         [JsonPropertyName("Codigos de produtos")]
-        public int ProductId { get; set; }
+        public Guid ProductId { get; set; }
 
-        public CreateOrderItemRequest(Guid orderId, int productId)
+        public CreateOrderItemRequest(Guid orderId, Guid productId)
         {
             OrderId = orderId;
             ProductId = productId;

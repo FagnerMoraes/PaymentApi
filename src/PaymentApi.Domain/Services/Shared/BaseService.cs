@@ -17,7 +17,7 @@ namespace PaymentApi.Domain.Services.Shared
         public virtual async Task UpdateAsync(TEntity objeto) =>
             await _repositoryBase.UpdateAsync(objeto);
 
-        public virtual async Task RemoveByIdAsync(int id) =>
+        public virtual async Task RemoveByIdAsync(Guid id) =>
             await _repositoryBase.RemoveByIdAsync(id);
 
         public void Dispose() =>

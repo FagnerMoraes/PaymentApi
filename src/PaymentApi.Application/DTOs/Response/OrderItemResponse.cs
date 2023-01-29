@@ -6,7 +6,7 @@ namespace PaymentApi.Application.DTOs.Response
 {
     public class OrderItemResponse
     {
-        public OrderItemResponse(int id,Guid orderId,ProductResponse product)
+        public OrderItemResponse(Guid id,Guid orderId,ProductResponse product)
         {
             Id = id;
             OrderId = orderId;
@@ -14,7 +14,7 @@ namespace PaymentApi.Application.DTOs.Response
         }
 
         [JsonPropertyName("CodigoOrdemItem ")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [JsonPropertyName("CodigoOrdem")]
         public Guid OrderId { get;set;}
         [JsonPropertyName("Produto")]

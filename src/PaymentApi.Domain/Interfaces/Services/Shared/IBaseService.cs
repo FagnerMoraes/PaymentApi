@@ -2,10 +2,10 @@
 
 namespace PaymentApi.Domain.Interfaces.Services.Shared;
 
-public interface IBaseService<TEntity> : IDisposable where TEntity : Entity
+public interface IBaseService<TEntity> where TEntity : Entity
 {
-    Task<object> CreateAsync(TEntity objeto);
-    Task UpdateAsync(TEntity objeto);
+    Task CreateAsync(TEntity objeto);
+    void Update(TEntity objeto);
     Task RemoveByIdAsync(Guid id);
 }
 

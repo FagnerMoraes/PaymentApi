@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PaymentApi.Data.Context;
@@ -11,35 +12,39 @@ using PaymentApi.Data.Context;
 namespace PaymentApi.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221102152102_mudando_nome_tabela")]
-    partial class mudando_nome_tabela
+    [Migration("20230129173246_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.10");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("PaymentApi.Domain.Entities.Order", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreateDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("OrderNumber")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SellerId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("SellerId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Status")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -50,15 +55,15 @@ namespace PaymentApi.Data.Migrations
 
             modelBuilder.Entity("PaymentApi.Domain.Entities.OrderItem", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("OrderId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -71,31 +76,34 @@ namespace PaymentApi.Data.Migrations
 
             modelBuilder.Entity("PaymentApi.Domain.Entities.Product", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("MONEY")
+                        .HasColumnName("COL_PRICE_PRODUCT");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(100)
+                        .HasColumnType("NVARCHAR(100)")
+                        .HasColumnName("COL_TITLE_PRODUCT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TB_PRODUTO", (string)null);
+                    b.ToTable("TB_PRODUCT", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = new Guid("9d2b0228-4d0d-4c23-8b49-01a698857709"),
                             Price = 2m,
                             Title = "Produto 01"
                         },
                         new
                         {
-                            Id = 2,
+                            Id = new Guid("9d2b0228-4d0d-4c23-8b49-01a698857708"),
                             Price = 2m,
                             Title = "Produto 02"
                         });
@@ -103,34 +111,34 @@ namespace PaymentApi.Data.Migrations
 
             modelBuilder.Entity("PaymentApi.Domain.Entities.Seller", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CPF")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Telefone")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TB_VENDEDOR", (string)null);
+                    b.ToTable("TB_SELLER", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = new Guid("9d2b0228-4d0d-4c23-8b49-01a698857702"),
                             CPF = "11111111",
                             Email = "teste@teste.com",
                             Name = "Vendedor01",
@@ -138,7 +146,7 @@ namespace PaymentApi.Data.Migrations
                         },
                         new
                         {
-                            Id = 2,
+                            Id = new Guid("9d2b0228-4d0d-4c23-8b49-01a698857703"),
                             CPF = "11111221",
                             Email = "teste@teste.com",
                             Name = "Vendedor02",

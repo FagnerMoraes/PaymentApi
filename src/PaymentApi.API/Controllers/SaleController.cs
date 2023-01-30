@@ -59,12 +59,8 @@ namespace PaymentApi.API.Controllers
             foreach (var item in saleRequest.OrderItemsSale) {
                 var orderItem = CreateOrderItemRequest.ConvertForEntity(id,item);
 
-                var OrderItemId = (int)await _orderItemService.CreateAsync(orderItem);
+                var OrderItemId = (Guid)await _orderItemService.CreateAsync(orderItem);
                 
-                if(OrderItemId == 0)    
-                {
-                    return BadRequest("Problema com cadastro");
-                }
 
             }
             return AcceptedAtAction(nameof(Get), new { id = id }, id);

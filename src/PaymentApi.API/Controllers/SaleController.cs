@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using PaymentApi.Application.DTOs.Request;
 using PaymentApi.Application.DTOs.Response;
 using PaymentApi.Domain.Entities;
+using PaymentApi.Domain.Interfaces;
 using PaymentApi.Domain.Interfaces.Repositories;
 using PaymentApi.Domain.Interfaces.Services;
 
@@ -17,13 +18,15 @@ namespace PaymentApi.API.Controllers
         private readonly IOrderItemRepository _orderItemRepository;
         private readonly ISellerRepository _sellerRepository;
         private readonly IProductRepository _productRepository;
+        private readonly IUnitOfWork _wow;
 
         public SaleController(IOrderService orderService,
                                IOrderItemService orderItemService,
                                IOrderRepository orderRepository,
                                IProductRepository productRepository,
                                ISellerRepository sellerRepository,
-                               IOrderItemRepository orderItemRepository)
+                               IOrderItemRepository orderItemRepository,
+                               IUnitOfWork wow)
         {            
             _orderService = orderService;
             _orderItemService = orderItemService;
@@ -31,6 +34,7 @@ namespace PaymentApi.API.Controllers
             _productRepository = productRepository;
             _sellerRepository = sellerRepository;
             _orderItemRepository = orderItemRepository;
+            _wow = wow;
             
         }
        
@@ -39,7 +43,7 @@ namespace PaymentApi.API.Controllers
         [HttpGet("{id:Guid}")]
         public async Task<ActionResult<SaleResponse>> Get(Guid id)
         {
-                var sale = await _orderRepository.ObterDtoPorIdAsync(id);
+                var sale = await _orderRepository.GetByIdAsync(id);
                 if (sale.OrderSale is null)
                     return NotFound($"Não existe venda com id={id}");
 
@@ -52,18 +56,26 @@ namespace PaymentApi.API.Controllers
         {
             var order = CreateOrderRequest.ConvertForEntity(saleRequest.OrderRequest);
 
-            var id = (Guid)await _orderService.AdicionarAsync(order);
+            try
+            {
+                var Orderid = await _orderService.AdicionarAsync(order);
 
-            var OrderItem = new List<OrderItem>();
+                var OrderItem = new List<OrderItem>();
 
-            foreach (var item in saleRequest.OrderItemsSale) {
-                var orderItem = CreateOrderItemRequest.ConvertForEntity(id,item);
-
-                var OrderItemId = (Guid)await _orderItemService.CreateAsync(orderItem);
-                
-
+                foreach (var item in saleRequest.OrderItemsSale)
+                {
+                    var orderItem = CreateOrderItemRequest.ConvertForEntity(Orderid, item);
+                    await _orderItemService.CreateAsync(orderItem);
+                }
+                await _wow.Commit();
+                return AcceptedAtAction(nameof(Get), new { id = Orderid }, Orderid);
             }
-            return AcceptedAtAction(nameof(Get), new { id = id }, id);
+            catch (Exception e)
+            {
+                await _wow.Rollback();
+                return BadRequest(e.Message);
+            }
+
         }
 
         [HttpPost("aprovar-pagamento")]

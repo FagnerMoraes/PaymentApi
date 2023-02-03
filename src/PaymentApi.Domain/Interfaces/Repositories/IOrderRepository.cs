@@ -9,11 +9,11 @@ public interface IOrderRepository{
 
     Task<Order?> ObterPorIdAsync(Guid id);
 
-    Task<Sale?> ObterDtoPorIdAsync(Guid id);
+    Task<Sale?> GetByIdAsync(Guid id);
 
     Task<IEnumerable<Order>> ObterTodosAsync();
 
-    Task<object> AdicionarAsync(Order order);
+    Task<Guid> AdicionarAsync(Order order);
 
 }
 

@@ -17,7 +17,7 @@ public class OrderService : IOrderService
     public async Task<object> ObterPorIdAsync(Guid id) =>
         await _orderRepository.ObterPorIdAsync(id);
 
-    public async Task<object> AdicionarAsync(Order order) =>
+    public async Task<Guid> AdicionarAsync(Order order) =>
         await _orderRepository.AdicionarAsync(order);
                 
 

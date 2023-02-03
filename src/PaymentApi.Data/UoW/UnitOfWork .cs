@@ -21,6 +21,7 @@ public class UnitOfWork : IUnitOfWork
 
     public Task Rollback()
     {
-        return Task.CompletedTask;
+        Dispose();
+        return Task.CompletedTask;        
     }
 }

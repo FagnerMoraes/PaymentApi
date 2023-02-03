@@ -22,7 +22,7 @@ namespace PaymentApi.Data.Repositories
         }
 
 
-        public async Task<Sale?> ObterDtoPorIdAsync(Guid id)
+        public async Task<Sale?> GetByIdAsync(Guid id)
         {
             Sale sale = new()
             {
@@ -55,10 +55,9 @@ namespace PaymentApi.Data.Repositories
             .AsNoTracking()
         .ToListAsync();
 
-        public async Task<object?> AdicionarAsync(Order order)
+        public async Task<Guid> AdicionarAsync(Order order)
         {
             await Context.AddAsync(order);
-            Context.SaveChangesAsync();
             return order.Id;
         }
 

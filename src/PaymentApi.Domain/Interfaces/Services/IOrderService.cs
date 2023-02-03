@@ -10,7 +10,7 @@ public interface IOrderService {
 
     Task<IEnumerable<Order>> ObterTodosAsync();
     Task<object> ObterPorIdAsync(Guid id);
-    Task<object> AdicionarAsync(Order order);
+    Task<Guid> AdicionarAsync(Order order);
 
 
 }

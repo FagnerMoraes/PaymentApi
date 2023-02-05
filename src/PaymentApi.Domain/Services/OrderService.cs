@@ -1,4 +1,5 @@
-﻿using PaymentApi.Domain.Entities;
+﻿
+using PaymentApi.Domain.Entities;
 using PaymentApi.Domain.Enums;
 using PaymentApi.Domain.Interfaces.Repositories;
 using PaymentApi.Domain.Interfaces.Services;

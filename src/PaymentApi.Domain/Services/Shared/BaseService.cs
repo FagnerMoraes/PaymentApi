@@ -11,7 +11,7 @@ public abstract class BaseService<TEntity> : IBaseService<TEntity> where TEntity
     public BaseService(IBaseRepository<TEntity> repositoryBase) =>
         _repositoryBase = repositoryBase;
 
-    public virtual async Task CreateAsync(TEntity objeto) =>
+    public virtual async Task<object> CreateAsync(TEntity objeto) =>
         await _repositoryBase.CreateAsync(objeto);
 
     public virtual void Update(TEntity objeto) =>

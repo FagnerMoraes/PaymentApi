@@ -21,7 +21,6 @@ namespace PaymentApi.Domain.Entities
             SellerId = sellerId;
         }
 
-        public Guid Id { get; private set; }
         public string OrderNumber { get; private set; }
         public Guid SellerId {get; private set;}
         public DateTime CreateDate { get; private set; }

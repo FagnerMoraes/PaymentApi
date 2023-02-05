@@ -184,7 +184,7 @@ namespace PaymentApi.Domain.Test.Services
         public async Task Adicionar_Ordem_Deve_Retornar_Id()
         {
             // Arrange
-            var id = 1;
+            var id = new Guid("9D2B0228-4D0D-4C23-8B49-01A698857755");
             _orderRepository.AdicionarAsync(_order)
                 .Returns(id);
 
@@ -201,7 +201,7 @@ namespace PaymentApi.Domain.Test.Services
             // Arrange
             var orderFake = new Order(new Guid("9D2B0228-4D0D-4C23-8B49-01A698857706"));
             _orderRepository.AdicionarAsync(_order)
-                .Returns(orderFake);
+                .Returns(orderFake.Id);
 
             // Act
 

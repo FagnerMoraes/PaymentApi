@@ -8,7 +8,7 @@ public interface IBaseRepository<TEntity> : IDisposable where TEntity : Entity
         Task<bool> VerifyInDB(Guid id);
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity?> GetByIdAsync(Guid id);
-        Task CreateAsync(TEntity objeto);
+        Task<object> CreateAsync(TEntity objeto);
         void Update(TEntity objeto);
         Task RemoveAsync(Guid id);  
 }

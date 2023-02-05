@@ -24,12 +24,13 @@ namespace PaymentApi.Application.DTOs.Request
 
         public static Sale ConvertForEntity(CreateSaleRequest saleRequest)
         {
+
             Sale newSale = new Sale();
 
             newSale.OrderSale = new Order(saleRequest.OrderRequest.SellerId);
 
                                         
-            foreach( var item in saleRequest.OrderItemsSale)
+            foreach(var item in saleRequest.OrderItemsSale)
             {
                 newSale.OrderItemsSale.Add(new OrderItem(default, default, item.ProductId));
             }

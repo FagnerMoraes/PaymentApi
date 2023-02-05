@@ -8,7 +8,7 @@ namespace PaymentApi.Domain.Entities
 {
     public class Sale
     {
-        public Order OrderSale { get; set; }
-        public ICollection<OrderItem> OrderItemsSale { get; set; }
+        public Order? OrderSale { get; set; }
+        public ICollection<OrderItem>? OrderItemsSale { get; set; }
     }
 }

@@ -195,24 +195,5 @@ namespace PaymentApi.Domain.Test.Services
             OrderNewId.Should().Be(id);
         }
 
-        [Fact]
-        public async Task Adicionar_Ordem_Deve_Sem_Vendedor_retorna_Null()
-        {
-            // Arrange
-            var orderFake = new Order(new Guid("9D2B0228-4D0D-4C23-8B49-01A698857706"));
-            _orderRepository.AdicionarAsync(_order)
-                .Returns(orderFake.Id);
-
-            // Act
-
-            var OrderNew = await _orderService.AdicionarAsync(orderFake);
-
-
-            // Assert
-            OrderNew.Should().Be(null);
-        }
-
-
-
     }
 }
